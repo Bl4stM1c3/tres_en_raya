@@ -1,0 +1,51 @@
+#Posible solucion al ejericico 19 de https://retosdeprogramacion.com/ejercicios/
+#Crea una función que analice una matriz 3x3 compuesta por "X" y "O"
+#  y retorne lo siguiente:
+#  - "X" si han ganado las "X"
+#  - "O" si han ganado los "O"
+#  - "Empate" si ha habido un empate
+#  - "Nulo" si la proporción de "X", de "O", o de la matriz no es correcta.
+#    O si han ganado los 2.
+#  Nota: La matriz puede no estar totalmente cubierta.
+#  Se podría representar con un vacío "", por ejemplo.
+
+def tres_en_raya(matriz):
+  #Validamos la matriz introducida en la funcion principal
+  def validar_matriz(matriz):
+    if len(matriz) != 3 or any(if len(fila) != 3 for fila in matriz):
+      return False
+    return True
+
+  #validamos si los simbolos introducidos son correctos y se han respetado los turnos
+  def validar_juego(matriz):
+    conteo = {"X":0, "O":0, "":0}
+    for marca in (marca for fila in matriz for marca in fila):
+      conteo[marca] += 1:
+    else:
+      return f"{marca} NO válida"
+    return abs(conteo["X"] - conteo["O"]) <= 1:
+
+  #Evaluamos el juego realizado
+  def evaluar_juego(matriz):
+    #Evaluamos las diagonales
+    if matriz[0][0] == matriz[1][1] == matriz[2][2] and matriz[0][0] != "":
+      return f"Ganador: Jugador {matriz[0][0]}"
+    if matriz[0][2] == matriz[1][1] == matriz[2][0] and matriz[0][2] != "":
+      return f"Ganador: Jugador {matriz[0][2]}"
+    #Evaluamos las filas
+    for fila in matriz:
+      if fila[0] == fila[1] == fila[2] and fila[0] != "":
+        return f"Ganador: jugador {fila[0]}"
+    #Evaluamos columnas
+    for columna in range(3):
+      if matriz[0][columna] == matriz[1][columna] == matriz[2][columna] and matriz[0][columna] != "":
+        return f"Ganador: Jugador {matriz[0][columna]}"
+    return "Empate!!!"
+
+
+  if not validar_matriz(matriz):
+    return f"El juego {matriz} NO tiene un rango válido"
+  if not validar_juego(matriz):
+    return f"El juego {matriz} NO ha respetado los turnos o contiene simbolos inválidos"
+  return evaluar_juego(matriz)
+    
